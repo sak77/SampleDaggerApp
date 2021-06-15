@@ -5,41 +5,46 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import javax.inject.Inject;
+import com.saket.sampledaggerapp.di.F1CarComponent;
+import com.saket.sampledaggerapp.di.SimpleCarComponent;
+import com.saket.sampledaggerapp.di.SimpleCar;
 
+/**
+ * Dependency Injection (DI) is a design pattern that allows inversion of dependency from SOLID principles.
+ *
+ * Dagger2 is a library provided by Google. It provides benefits -
+ * 1. Removes a lot of boiler-plate code when compared to manual DI.
+ * 2. Creates a dependency graph at Compile time. Instead of earlier libraries that use reflection at run time.
+ * 3. Reports any issue in DI at compile time.
+ *
+ * This application uses the Car and its engine to see how DI can be used.
+ * It looks at Dagger2 annotations such as @Inject, @Component, @Module etc.
+ *
+ */
 public class MainActivity extends AppCompatActivity {
-
-    //Example of dependency  -
-    /*
-    Suppose we have a Car class. Now to start the car we need to turn the engine ON.
-    In this example we have 2 classes Car and Engine. Engine has 2 states ON, OFF.
-    Car class has method to turn engine state to ON/OFF. So Car has dependency on Engine class.
-     */
-
-    //Inject is used to request dependency injection.
-    @Inject
-    Engine mEngine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Dagger injection needs to be done before calling super.onCreate() in activity
         //similarly it needs to be done before calling super.onAttach() in fragments.
         //Get instance of AppComponent (application graph)
-        AppComponent appComponent = ((MyApplication)getApplication()).appComponent;
+        SimpleCarComponent simpleCarComponent = ((MyApplication)getApplication()).simpleCarComponent;
+        F1CarComponent f1CarComponent = ((MyApplication)getApplication()).f1CarComponent;
+
         //Inject MainActivity so that Dagger knows that MainActivity is requesting dependency injection
-        appComponent.inject(this);
+        //appComponent.inject(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Car myCar = new Car(mEngine);
-        startCar(myCar);
+        //startCar(simpleCarComponent.getCar());
+        raceCar(f1CarComponent);
     }
 
-    private void startCar(Car car) {
-        car.startEngine();
-        Log.d("MainActivity", "startCar: engine: " + car.mEngine.getManufacturer());
-        if (car.isEngineOn()) {
+    private void startCar(SimpleCar simpleCar) {
+        simpleCar.startEngine();
+        Log.d("MainActivity", "startCar: engine: " + simpleCar.mSimpleEngine.getManufacturer());
+        if (simpleCar.isEngineOn()) {
             try {
                 Log.d("MainActivity", "startCar: Driving");
                 //Driving
@@ -49,14 +54,36 @@ public class MainActivity extends AppCompatActivity {
             }
 
             //Now stop the car
-            stopCar(car);
+            stopCar(simpleCar);
         }
     }
 
-    private void stopCar(Car car) {
-        car.stopEngine();
-        if (!car.isEngineOn()){
+    private void stopCar(SimpleCar simpleCar) {
+        simpleCar.stopEngine();
+        if (!simpleCar.isEngineOn()){
             Log.d("MainActivity", "stopCar: Car stopped.");
         }
+    }
+
+    private void raceCar(F1CarComponent f1CarComponent) {
+        System.out.printf("Start your engines....");
+        f1CarComponent.getFerrariCar().startCar();
+        f1CarComponent.getMercedesCar().startEngine();
+        f1CarComponent.getRedBullCar().startCar();
+        f1CarComponent.getRenaultCar().startEngine();
+        try {
+            //Driving
+            Thread.sleep(1000);
+            System.out.printf("Driving\n");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.printf("Race ends...\n");
+
+        f1CarComponent.getFerrariCar().stopCar();
+        f1CarComponent.getRenaultCar().stopEngine();
+        f1CarComponent.getRedBullCar().stopCar();
+        f1CarComponent.getMercedesCar().stopEngine();
     }
 }
