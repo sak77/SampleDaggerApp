@@ -7,6 +7,8 @@ public class FerrariEngine implements IEngine {
     /*
     Here constructor takes manufacturer as parameter. This is something which @Inject will not
     be able to provide out-of-the-box. So instead we use Modules and Provides annotations here.
+
+    Refer EngineModule.
     */
     //@Inject
     FerrariEngine(String manufacturer) {
@@ -15,12 +17,12 @@ public class FerrariEngine implements IEngine {
 
     @Override
     public void startEngine() {
-        System.out.println("Starting Ferrari engine!!");
+        System.out.println("Starting " + mEngineManufacturer + " engine!!");
     }
 
     @Override
     public void stopEngine() {
-        System.out.println("Stopping Ferrari engine!");
+        System.out.println("Stopping " + mEngineManufacturer + " engine!!");
     }
 
     @Override

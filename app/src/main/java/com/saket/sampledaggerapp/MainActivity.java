@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.saket.sampledaggerapp.di.DaggerF1CarComponent;
+import com.saket.sampledaggerapp.di.DaggerSimpleCarComponent;
 import com.saket.sampledaggerapp.di.F1CarComponent;
 import com.saket.sampledaggerapp.di.SimpleCarComponent;
 import com.saket.sampledaggerapp.di.SimpleCar;
@@ -12,7 +14,7 @@ import com.saket.sampledaggerapp.di.SimpleCar;
 /**
  * Dependency Injection (DI) is a design pattern that allows inversion of dependency from SOLID principles.
  *
- * Dagger2 is a library provided by Google. It provides benefits -
+ * Dagger2 is a library provided by Square. It provides benefits -
  * 1. Removes a lot of boiler-plate code when compared to manual DI.
  * 2. Creates a dependency graph at Compile time. Instead of earlier libraries that use reflection at run time.
  * 3. Reports any issue in DI at compile time.
@@ -25,19 +27,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Dagger injection needs to be done before calling super.onCreate() in activity
-        //similarly it needs to be done before calling super.onAttach() in fragments.
-        //Get instance of AppComponent (application graph)
-        SimpleCarComponent simpleCarComponent = ((MyApplication)getApplication()).simpleCarComponent;
-        F1CarComponent f1CarComponent = ((MyApplication)getApplication()).f1CarComponent;
-
-        //Inject MainActivity so that Dagger knows that MainActivity is requesting dependency injection
-        //appComponent.inject(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //startCar(simpleCarComponent.getCar());
+        //testWithSimpleCar();
+        testWithF1Car();
+    }
+
+    //Very basic use-case for Dagger2.
+    private void testWithSimpleCar() {
+        SimpleCarComponent simpleCarComponent = DaggerSimpleCarComponent.builder().build();
+        SimpleCar mySimpleCar = simpleCarComponent.getCar();
+        startCar(mySimpleCar);
+    }
+
+    private void testWithF1Car() {
+        F1CarComponent f1CarComponent = DaggerF1CarComponent.create();
         raceCar(f1CarComponent);
     }
 

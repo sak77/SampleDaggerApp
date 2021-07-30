@@ -9,11 +9,12 @@ import javax.inject.Inject;
  *
  * We annotate constructor with @Inject to include this class in DI graph.
  *
+ * Otherwise we will have to explicitly provide instance of this class when
+ * requesting instance of SimpleCar.
+ *
  * For such simple class we don't need to use Modules to provide DI.
- * But we still need to access the Car class via the Component interface.
- *
- * But we dont need any separate modules in the Component interface for such basic DI cases.
- *
+ * But we still need to access the Car class via the Component interface,
+ * refer SimpleCarComponent.
  */
 public class SimpleEngine {
 

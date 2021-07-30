@@ -10,6 +10,8 @@ import javax.inject.Inject;
  *
  * For such cases where @Inject is insufficient or awkward, use @Provides-annotated method
  * to satisfy a dependency. The method's return type specifies which dependency it satisfies.
+ *
+ * Refer EngineModule.
  */
 public class HondaEngine implements IEngine {
 

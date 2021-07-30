@@ -8,6 +8,13 @@ import dagger.Component;
  *
  * In below case, EngineModule tells dagger how to get instances of Ferrari and Honda engines, since
  * those class constructors could not be injected directly into DI object graph via @Inject.
+ *
+ * Dagger2 generates the implementation of this interface.
+ * The implementation has the same name as the interface, prefixed with Dagger.
+ * Obtain the instance by invoking the builder() method on that implementation and
+ * use the returned builder to set dependencies and build() the new instance.
+ *
+ * See MainActivity for implementation.
  */
 @Component (modules = EngineModule.class)
 public interface F1CarComponent {
