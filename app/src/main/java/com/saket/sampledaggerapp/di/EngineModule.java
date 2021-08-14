@@ -13,32 +13,33 @@ import dagger.Provides;
  *
  * So in cases where @Inject cannot be used we can use Module with Provides to include class instance
  * in DI Object graph.
+ *
+ *
+ * EngineModule here is an abstract class. This is because @Binds has to be an abstract method and
+ * abstract method cannot be part of a non-abstract class. Then to make @Provides work, i change
+ * it to static methods. This is also supposed to improve performance than having instance methods.
+ *
+ * Module can also be a regular class or an interface.
  */
 
 @Module
-public class EngineModule {
+public abstract class EngineModule {
 
     /*
     To demonstrate this, i have included a string param to constructor of HondaEngine.
     Now @Inject will not be able to provide this param, so instead i use Module and Provides here...
      */
     @Provides
-    public HondaEngine provideHondaEngine(){
+    public static HondaEngine provideHondaEngine(){
         return new HondaEngine("Honda");
     }
 
     @Provides
-    public FerrariEngine provideFerrariEngine() {return new FerrariEngine("Ferrari");}
-/*
+    public static FerrariEngine provideFerrariEngine() {return new FerrariEngine("Ferrari");}
 
-    */
-/*
-    @Binds can be used as an alias in case @Provides method returns instance of its own dependency.
-
-    It is not working for me, so skipping it for now...
-     *//*
-
+    /*
+    Binds can be used to provide instance where interface is being used.
+     */
     @Binds
-    public RenaultEngine provideRenaultEngine() {return new RenaultEngine();}
-*/
+    abstract IEngine bindRedBullEngine(HondaEngine hondaEngine);
 }
