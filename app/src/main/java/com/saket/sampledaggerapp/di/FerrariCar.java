@@ -1,8 +1,12 @@
 package com.saket.sampledaggerapp.di;
 
+import androidx.annotation.NonNull;
+
+import com.saket.sampledaggerapp.IF1Car;
+
 import javax.inject.Inject;
 
-public class FerrariCar {
+public class FerrariCar implements IF1Car {
 
     FerrariEngine mFerrariEngine;
 
@@ -12,11 +16,19 @@ public class FerrariCar {
         mFerrariEngine = engine;
     }
 
-    public void startCar() {
+    @Override
+    public void startEngine() {
         mFerrariEngine.startEngine();
     }
 
-    public void stopCar() {
+    @Override
+    public void stopEngine() {
         mFerrariEngine.stopEngine();
+    }
+
+    @NonNull
+    @Override
+    public IEngine getEngine() {
+        return mFerrariEngine;
     }
 }

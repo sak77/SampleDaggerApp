@@ -20,6 +20,9 @@ import dagger.Provides;
  * it to static methods. This is also supposed to improve performance than having instance methods.
  *
  * Module can also be a regular class or an interface.
+ *
+ * @Singleton can be applied to the component and individual @Provides/@Binds methods to ensure that
+ * single instance of the method is provided during life-time of its component.
  */
 
 @Module
@@ -34,6 +37,11 @@ public abstract class EngineModule {
         return new HondaEngine("Honda");
     }
 
+    /*
+    Annotate an @Provides method or injectable class with @Singleton.
+    The graph will use a single instance of the value for all of its clients.
+     */
+    @Singleton
     @Provides
     public static FerrariEngine provideFerrariEngine() {return new FerrariEngine("Ferrari");}
 

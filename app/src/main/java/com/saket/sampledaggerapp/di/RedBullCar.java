@@ -1,10 +1,14 @@
 package com.saket.sampledaggerapp.di;
 
+import androidx.annotation.NonNull;
+
+import com.saket.sampledaggerapp.IF1Car;
+
 import javax.inject.Inject;
 
-public class RedBullCar {
+public class RedBullCar implements IF1Car {
 
-    IEngine mHondaEngine;
+    IEngine mIEngine;
 
     /*
     Here instead of using a specific engine, we include an interface as a parameter.
@@ -14,14 +18,22 @@ public class RedBullCar {
      */
     @Inject
     RedBullCar(IEngine engine) {
-        mHondaEngine = engine;
+        mIEngine = engine;
     }
 
-    public void startCar() {
-        mHondaEngine.startEngine();
+    @Override
+    public void startEngine() {
+        mIEngine.startEngine();
     }
 
-    public void stopCar() {
-        mHondaEngine.stopEngine();
+    @Override
+    public void stopEngine() {
+        mIEngine.stopEngine();
+    }
+
+    @NonNull
+    @Override
+    public IEngine getEngine() {
+        return mIEngine;
     }
 }

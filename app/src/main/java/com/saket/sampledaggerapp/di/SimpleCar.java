@@ -1,6 +1,7 @@
 package com.saket.sampledaggerapp.di;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by sshriwas on 2020-04-07
@@ -10,6 +11,8 @@ import javax.inject.Inject;
  * So we don't really need any extra Modules/Provides annotations to build the DI object graph. Instead,
  * we have a simple Component Interface without any Modules and a single accessor method getCar().
  */
+
+@Singleton
 public class SimpleCar {
 
     public SimpleEngine mSimpleEngine;

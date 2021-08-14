@@ -8,6 +8,8 @@ import android.util.Log;
 import com.saket.sampledaggerapp.di.DaggerF1CarComponent;
 import com.saket.sampledaggerapp.di.DaggerSimpleCarComponent;
 import com.saket.sampledaggerapp.di.F1CarComponent;
+import com.saket.sampledaggerapp.di.FerrariCar;
+import com.saket.sampledaggerapp.di.RedBullCar;
 import com.saket.sampledaggerapp.di.SimpleCarComponent;
 import com.saket.sampledaggerapp.di.SimpleCar;
 
@@ -38,12 +40,34 @@ public class MainActivity extends AppCompatActivity {
     private void testWithSimpleCar() {
         SimpleCarComponent simpleCarComponent = DaggerSimpleCarComponent.builder().build();
         SimpleCar mySimpleCar = simpleCarComponent.getCar();
-        startCar(mySimpleCar);
+
+        //Every time getCar() is called, a new instance of Simple Car is created.
+        //But if we annotate the class and its component with the same annotation (@Singleton in this case)
+        //Then we tell Dagger to use the same instance of SimpleCar during life-time of its component
+        //SimpleCarcomponent.
+
+        /*
+        To acheive this, we annotate the component and class with same annotation. Dagger2 provides only
+        one annotation out-of-the-box @Singleton. This is generally used with Application Component so that
+         it provides single instance classes during the lifetime of the application.
+
+        But we can also define our own annotations if required.
+         */
+        SimpleCar mySimpleCar2 = simpleCarComponent.getCar();
+
+        if (mySimpleCar == mySimpleCar2) {
+            startCar(mySimpleCar);
+        }
+
     }
 
     private void testWithF1Car() {
+        //create internally calls builder.build()
         F1CarComponent f1CarComponent = DaggerF1CarComponent.create();
-        raceCar(f1CarComponent);
+        if (testEngines(f1CarComponent)) {
+            raceCar(f1CarComponent);
+        }
+
     }
 
     private void startCar(SimpleCar simpleCar) {
@@ -72,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void raceCar(F1CarComponent f1CarComponent) {
         System.out.printf("Start your engines....");
-        f1CarComponent.getFerrariCar().startCar();
+        f1CarComponent.getFerrariCar().startEngine();
         f1CarComponent.getMercedesCar().startEngine();
-        f1CarComponent.getRedBullCar().startCar();
+        f1CarComponent.getRedBullCar().startEngine();
         f1CarComponent.getRenaultCar().startEngine();
         try {
             //Driving
@@ -86,9 +110,35 @@ public class MainActivity extends AppCompatActivity {
         }
         System.out.printf("Race ends...\n");
 
-        f1CarComponent.getFerrariCar().stopCar();
+        f1CarComponent.getFerrariCar().stopEngine();
         f1CarComponent.getRenaultCar().stopEngine();
-        f1CarComponent.getRedBullCar().stopCar();
+        f1CarComponent.getRedBullCar().stopEngine();
         f1CarComponent.getMercedesCar().stopEngine();
+    }
+
+    private boolean testEngines(F1CarComponent f1CarComponent) {
+        //Define scoping via annotations..
+        /*
+        Since Ferrari engine provide method is annotated with @Singleton,
+        so the component will use only one instance during its life-time.
+         */
+        FerrariCar ferrariCar1 = f1CarComponent.getFerrariCar();
+        FerrariCar ferrariCar2 = f1CarComponent.getFerrariCar();
+        if (ferrariCar1.getEngine() == ferrariCar2.getEngine()) {
+            System.out.println("Both Ferrari cars use same ferrari engine...");
+            /*
+            Redbull engines provide method is NOT annotated with @Singleton. So each time
+            an instance is requested, a new instance of engine is provided.
+
+            Is generated java code different in both cases??
+             */
+            RedBullCar redBullCar1 = f1CarComponent.getRedBullCar();
+            RedBullCar redBullCar2 = f1CarComponent.getRedBullCar();
+            if (redBullCar1.getEngine() != redBullCar2.getEngine()) {
+                System.out.println("Both Redbull cars do not use same engine...");
+                return false;
+            }
+        }
+        return true;
     }
 }

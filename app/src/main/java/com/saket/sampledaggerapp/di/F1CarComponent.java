@@ -1,5 +1,7 @@
 package com.saket.sampledaggerapp.di;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 
 /**
@@ -16,6 +18,8 @@ import dagger.Component;
  *
  * See MainActivity for implementation.
  */
+
+@Singleton
 @Component (modules = EngineModule.class)
 public interface F1CarComponent {
     FerrariCar getFerrariCar();
