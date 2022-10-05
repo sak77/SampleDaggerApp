@@ -44,10 +44,9 @@ public class MainActivity extends AppCompatActivity {
         //Every time getCar() is called, a new instance of Simple Car is created.
         //But if we annotate the class and its component with the same annotation (@Singleton in this case)
         //Then we tell Dagger to use the same instance of SimpleCar during life-time of its component
-        //SimpleCarcomponent.
 
         /*
-        To acheive this, we annotate the component and class with same annotation. Dagger2 provides only
+        To achieve this, we annotate the component and class with same annotation. Dagger2 provides only
         one annotation out-of-the-box @Singleton. This is generally used with Application Component so that
          it provides single instance classes during the lifetime of the application.
 

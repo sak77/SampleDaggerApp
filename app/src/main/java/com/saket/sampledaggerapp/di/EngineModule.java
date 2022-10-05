@@ -46,7 +46,7 @@ public abstract class EngineModule {
     public static FerrariEngine provideFerrariEngine() {return new FerrariEngine("Ferrari");}
 
     /*
-    Binds can be used to provide instance where interface is being used.
+    Binds can be used to provide instance where interface is being used - Dependency Inversion.
      */
     @Binds
     abstract IEngine bindRedBullEngine(HondaEngine hondaEngine);
