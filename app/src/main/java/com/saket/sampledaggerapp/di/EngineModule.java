@@ -1,5 +1,9 @@
 package com.saket.sampledaggerapp.di;
 
+import com.saket.sampledaggerapp.engine.FerrariEngine;
+import com.saket.sampledaggerapp.engine.HondaEngine;
+import com.saket.sampledaggerapp.engine.IEngine;
+
 import javax.inject.Singleton;
 
 import dagger.Binds;

@@ -5,25 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.saket.sampledaggerapp.di.DaggerF1CarComponent;
-import com.saket.sampledaggerapp.di.DaggerSimpleCarComponent;
 import com.saket.sampledaggerapp.di.F1CarComponent;
-import com.saket.sampledaggerapp.di.FerrariCar;
-import com.saket.sampledaggerapp.di.RedBullCar;
-import com.saket.sampledaggerapp.di.SimpleCarComponent;
 import com.saket.sampledaggerapp.di.SimpleCar;
+import com.saket.sampledaggerapp.di.SimpleCarComponent;
+import com.saket.sampledaggerapp.f1car.FerrariCar;
+import com.saket.sampledaggerapp.f1car.RedBullCar;
+
 
 /**
  * Dependency Injection (DI) is a design pattern that allows inversion of dependency from SOLID principles.
- *
+ * <p>
  * Dagger2 is a library provided by Square. It provides benefits -
  * 1. Removes a lot of boiler-plate code when compared to manual DI.
  * 2. Creates a dependency graph at Compile time. Instead of earlier libraries that use reflection at run time.
  * 3. Reports any issue in DI at compile time.
- *
+ * <p>
  * This application uses the Car and its engine to see how DI can be used.
  * It looks at Dagger2 annotations such as @Inject, @Component, @Module etc.
- *
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Very basic use-case for Dagger2.
     private void testWithSimpleCar() {
-        SimpleCarComponent simpleCarComponent = DaggerSimpleCarComponent.builder().build();
+        SimpleCarComponent simpleCarComponent = ((MyApplication) getApplication()).simpleCarComponent;
         SimpleCar mySimpleCar = simpleCarComponent.getCar();
 
         //Every time getCar() is called, a new instance of Simple Car is created.
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void testWithF1Car() {
         //create internally calls builder.build()
-        F1CarComponent f1CarComponent = DaggerF1CarComponent.create();
+        F1CarComponent f1CarComponent = ((MyApplication)getApplication()).f1CarComponent;
         if (testEngines(f1CarComponent)) {
             raceCar(f1CarComponent);
         }
@@ -88,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void stopCar(SimpleCar simpleCar) {
         simpleCar.stopEngine();
-        if (!simpleCar.isEngineOn()){
+        if (!simpleCar.isEngineOn()) {
             Log.d("MainActivity", "stopCar: Car stopped.");
         }
     }

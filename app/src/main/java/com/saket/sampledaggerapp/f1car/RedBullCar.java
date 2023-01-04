@@ -1,8 +1,8 @@
-package com.saket.sampledaggerapp.di;
+package com.saket.sampledaggerapp.f1car;
 
 import androidx.annotation.NonNull;
 
-import com.saket.sampledaggerapp.IF1Car;
+import com.saket.sampledaggerapp.engine.IEngine;
 
 import javax.inject.Inject;
 

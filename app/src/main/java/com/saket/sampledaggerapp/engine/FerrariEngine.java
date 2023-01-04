@@ -1,4 +1,4 @@
-package com.saket.sampledaggerapp.di;
+package com.saket.sampledaggerapp.engine;
 
 public class FerrariEngine implements IEngine {
 
@@ -11,7 +11,7 @@ public class FerrariEngine implements IEngine {
     Refer EngineModule.
     */
     //@Inject
-    FerrariEngine(String manufacturer) {
+    public FerrariEngine(String manufacturer) {
         mEngineManufacturer = manufacturer;
     }
 

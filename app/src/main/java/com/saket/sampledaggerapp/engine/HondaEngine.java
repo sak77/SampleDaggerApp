@@ -1,6 +1,4 @@
-package com.saket.sampledaggerapp.di;
-
-import javax.inject.Inject;
+package com.saket.sampledaggerapp.engine;
 
 /**
  * @Inject does not work everywhere -
@@ -22,7 +20,7 @@ public class HondaEngine implements IEngine {
     be able to provide out-of-the-box. So instead we use Modules and Provides annotations here.
      */
     //@Inject
-    HondaEngine(String manufacturer) {mManufacturereName = manufacturer;}
+    public HondaEngine(String manufacturer) {mManufacturereName = manufacturer;}
 
     @Override
     public void startEngine() {

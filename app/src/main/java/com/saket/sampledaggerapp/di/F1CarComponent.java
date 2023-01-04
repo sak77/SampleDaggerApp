@@ -1,5 +1,10 @@
 package com.saket.sampledaggerapp.di;
 
+import com.saket.sampledaggerapp.f1car.FerrariCar;
+import com.saket.sampledaggerapp.f1car.MercedesCar;
+import com.saket.sampledaggerapp.f1car.RedBullCar;
+import com.saket.sampledaggerapp.f1car.RenaultCar;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
