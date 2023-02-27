@@ -8,6 +8,7 @@ import android.util.Log;
 import com.saket.sampledaggerapp.di.F1CarComponent;
 import com.saket.sampledaggerapp.di.SimpleCar;
 import com.saket.sampledaggerapp.di.SimpleCarComponent;
+import com.saket.sampledaggerapp.f1car.AudiCar;
 import com.saket.sampledaggerapp.f1car.FerrariCar;
 import com.saket.sampledaggerapp.f1car.RedBullCar;
 
@@ -31,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //testWithSimpleCar();
-        testWithF1Car();
+        //testWithF1Car();
+        F1CarComponent f1CarComponent = ((MyApplication) getApplication()).f1CarComponent;
+        testNewF1Car(f1CarComponent);
     }
 
     //Very basic use-case for Dagger2.
@@ -60,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void testWithF1Car() {
         //create internally calls builder.build()
-        F1CarComponent f1CarComponent = ((MyApplication)getApplication()).f1CarComponent;
+        F1CarComponent f1CarComponent = ((MyApplication) getApplication()).f1CarComponent;
         if (testEngines(f1CarComponent)) {
             raceCar(f1CarComponent);
         }
@@ -133,9 +136,18 @@ public class MainActivity extends AppCompatActivity {
             RedBullCar redBullCar2 = f1CarComponent.getRedBullCar();
             if (redBullCar1.getEngine() != redBullCar2.getEngine()) {
                 System.out.println("Both Redbull cars do not use same engine...");
-                return false;
             }
         }
         return true;
+    }
+
+    /*
+    This is to test Multi-bindings in Dagger
+     */
+    private void testNewF1Car(F1CarComponent f1CarComponent) {
+        AudiCar audiCar = f1CarComponent.getAudiCar();
+        System.out.println("Testing Audi Car with engine " + audiCar.getEngine().getManufacturer());
+        audiCar.startEngine();
+        audiCar.stopEngine();
     }
 }

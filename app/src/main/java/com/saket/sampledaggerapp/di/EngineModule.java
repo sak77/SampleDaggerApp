@@ -1,14 +1,20 @@
 package com.saket.sampledaggerapp.di;
 
+import com.saket.sampledaggerapp.engine.CosworthEngine;
 import com.saket.sampledaggerapp.engine.FerrariEngine;
 import com.saket.sampledaggerapp.engine.HondaEngine;
 import com.saket.sampledaggerapp.engine.IEngine;
+import com.saket.sampledaggerapp.engine.IEngineSupplier;
+import com.saket.sampledaggerapp.engine.SauberEngine;
 
 import javax.inject.Singleton;
 
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import dagger.multibindings.IntoMap;
+import dagger.multibindings.StringKey;
+import kotlin.jvm.JvmSuppressWildcards;
 
 /**
  * Created by sshriwas on 2020-04-07
@@ -54,4 +60,32 @@ public abstract class EngineModule {
      */
     @Binds
     abstract IEngine bindRedBullEngine(HondaEngine hondaEngine);
+
+    /*
+    If there are multiple classes that implement the same interface,
+    then we can put them in a map or a set. In Dagger this can be
+    achieved via Multi-binding.
+
+    So here, we use @Binds @Into @Map/@Set. And we can define a
+    key for each element in the map. The key can be a String or
+    even the class which implements the interface.
+
+    Then one has to define a function in component which returns
+    this map of bindings. And then this map can be used in the
+    application code.
+
+    So below i bind 2 instances which implements ISupplierEngine
+    interface.
+     */
+
+    @Binds
+    @IntoMap
+    @StringKey("Sauber")
+    abstract IEngineSupplier bindSauberEngine(SauberEngine sauberEngine);
+
+    @Binds
+    @IntoMap
+    @StringKey("Cosworth")
+    abstract IEngineSupplier bindCosworthEngine(CosworthEngine cosworthEngine);
+
 }

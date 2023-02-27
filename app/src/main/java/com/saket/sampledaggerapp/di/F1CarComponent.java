@@ -1,13 +1,19 @@
 package com.saket.sampledaggerapp.di;
 
+import com.saket.sampledaggerapp.engine.IEngine;
+import com.saket.sampledaggerapp.engine.IEngineSupplier;
+import com.saket.sampledaggerapp.f1car.AudiCar;
 import com.saket.sampledaggerapp.f1car.FerrariCar;
 import com.saket.sampledaggerapp.f1car.MercedesCar;
 import com.saket.sampledaggerapp.f1car.RedBullCar;
 import com.saket.sampledaggerapp.f1car.RenaultCar;
 
+import java.util.Map;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
+import kotlin.jvm.JvmSuppressWildcards;
 
 /**
  * Components can use Modules to provide class instances for the DI object graph.
@@ -34,4 +40,11 @@ public interface F1CarComponent {
     RedBullCar getRedBullCar();
 
     RenaultCar getRenaultCar();
+
+    /*
+    Here is a function to return Map from Multi-bindings.
+     */
+    Map<String, IEngineSupplier> engineSuppliersByName();
+
+    AudiCar getAudiCar();
 }
