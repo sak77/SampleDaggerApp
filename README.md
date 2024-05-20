@@ -9,6 +9,9 @@ use @Module and @Component classes.
 @Provides and @Binds annotations used to define how to provide 
 class and interface instance from a module. 
 
+@Binds @Into @Map/@Set annotations can be used to create a Map/Set
+of bindings. Known as Multi-binding.
+
 Application level components and use of @Singleton to have only 
 one instance of the class during the app's lifetime.
 

@@ -14,21 +14,20 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoMap;
 import dagger.multibindings.StringKey;
-import kotlin.jvm.JvmSuppressWildcards;
 
 /**
  * Created by sshriwas on 2020-04-07
- *
+ * <p>
  * Modules are an alternate way to @Inject to add class to Dagger's DI Object graph.
- *
+ * <p>
  * So in cases where @Inject cannot be used we can use Module with Provides to include class instance
  * in DI Object graph.
- *
- *
+ * <p>
+ * <p>
  * EngineModule here is an abstract class. This is because @Binds has to be an abstract method and
  * abstract method cannot be part of a non-abstract class. Then to make @Provides work, i change
  * it to static methods. This is also supposed to improve performance than having instance methods.
- *
+ * <p>
  * Module can also be a regular class or an interface.
  *
  * @Singleton can be applied to the component and individual @Provides/@Binds methods to ensure that
@@ -43,7 +42,7 @@ public abstract class EngineModule {
     Now @Inject will not be able to provide this param, so instead i use Module and Provides here...
      */
     @Provides
-    public static HondaEngine provideHondaEngine(){
+    public static HondaEngine provideHondaEngine() {
         return new HondaEngine("Honda");
     }
 
@@ -53,7 +52,9 @@ public abstract class EngineModule {
      */
     @Singleton
     @Provides
-    public static FerrariEngine provideFerrariEngine() {return new FerrariEngine("Ferrari");}
+    public static FerrariEngine provideFerrariEngine() {
+        return new FerrariEngine("Ferrari");
+    }
 
     /*
     Binds can be used to provide instance where interface is being used - Dependency Inversion.
@@ -76,6 +77,8 @@ public abstract class EngineModule {
 
     So below i bind 2 instances which implements ISupplierEngine
     interface.
+
+    Refer AudiCar class to see how these instances are accessed.
      */
 
     @Binds

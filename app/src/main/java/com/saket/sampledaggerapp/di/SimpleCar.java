@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 /**
  * Created by sshriwas on 2020-04-07
  * Simple Car object with dependency on a SimpleEngine object.
- *
+ * <p>
  * This demonstrates the simplest use case of DI. Where SimpleEngine constructor has no parameters.
  * So we don't really need any extra Modules/Provides annotations to build the DI object graph. Instead,
  * we have a simple Component Interface without any Modules and a single accessor method getCar().

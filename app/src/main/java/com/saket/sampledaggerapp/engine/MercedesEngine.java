@@ -5,7 +5,8 @@ import javax.inject.Inject;
 public class MercedesEngine implements IEngine {
 
     @Inject
-    MercedesEngine() {}
+    MercedesEngine() {
+    }
 
     @Override
     public void startEngine() {

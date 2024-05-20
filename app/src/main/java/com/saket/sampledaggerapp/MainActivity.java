@@ -1,9 +1,9 @@
 package com.saket.sampledaggerapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.saket.sampledaggerapp.di.F1CarComponent;
 import com.saket.sampledaggerapp.di.SimpleCar;
@@ -43,8 +43,9 @@ public class MainActivity extends AppCompatActivity {
         SimpleCar mySimpleCar = simpleCarComponent.getCar();
 
         //Every time getCar() is called, a new instance of Simple Car is created.
-        //But if we annotate the class and its component with the same annotation (@Singleton in this case)
-        //Then we tell Dagger to use the same instance of SimpleCar during life-time of its component
+        //But if we annotate SimpleCar class and its component with the same annotation
+        // (@Singleton in this case) then we tell Dagger to use the same instance of SimpleCar
+        // during life-time of its component
 
         /*
         To achieve this, we annotate the component and class with same annotation. Dagger2 provides only

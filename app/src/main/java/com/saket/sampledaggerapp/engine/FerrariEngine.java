@@ -6,7 +6,7 @@ public class FerrariEngine implements IEngine {
 
     /*
     Here constructor takes manufacturer as parameter. This is something which @Inject will not
-    be able to provide out-of-the-box. So instead we use Modules and Provides annotations here.
+    be able to provide out-of-the-box. So instead use Modules with providers for this class instance.
 
     Refer EngineModule.
     */

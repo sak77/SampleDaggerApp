@@ -17,8 +17,10 @@ import javax.inject.Inject
  * you need to annotate your element with @JvmSuppressWildcards at the injection site,
  * e.g. @Inject lateinit var foo: Set<@JvmSuppressWildcards Foo>.
  */
-class AudiCar @Inject constructor(private val engineSuppliers: Map<String, @JvmSuppressWildcards IEngineSupplier>) : IF1Car {
-    private val currentSupplier = "Sauber"
+class AudiCar @Inject constructor(
+    private val engineSuppliers: Map<String, @JvmSuppressWildcards IEngineSupplier>
+) : IF1Car {
+    private val currentSupplier = "Cosworth"
     override fun startEngine() {
         engineSuppliers[currentSupplier]?.startEngine()
     }

@@ -5,10 +5,10 @@ package com.saket.sampledaggerapp.engine;
  * Interfaces can’t be constructed.
  * Third-party classes can’t be annotated.
  * Configurable objects must be configured!
- *
+ * <p>
  * For such cases where @Inject is insufficient or awkward, use @Provides-annotated method
  * to satisfy a dependency. The method's return type specifies which dependency it satisfies.
- *
+ * <p>
  * Refer EngineModule.
  */
 public class HondaEngine implements IEngine {
@@ -20,7 +20,9 @@ public class HondaEngine implements IEngine {
     be able to provide out-of-the-box. So instead we use Modules and Provides annotations here.
      */
     //@Inject
-    public HondaEngine(String manufacturer) {mManufacturereName = manufacturer;}
+    public HondaEngine(String manufacturer) {
+        mManufacturereName = manufacturer;
+    }
 
     @Override
     public void startEngine() {
